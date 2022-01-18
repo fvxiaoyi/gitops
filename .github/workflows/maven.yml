@@ -33,9 +33,25 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: build and extracted
       run: java -Djarmode=layertools -jar target/*.jar extract --destination ${{ env.EXTRACTED_DIR }}
-    - name: Docker Layer Caching
-      uses: satackey/action-docker-layer-caching@v0.0.11
-    - name: build and push image
+    - name: Docker Setup Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+    - name: Cache Docker layers
+      uses: actions/cache@v2.1.7
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+            ${{ runner.os }}-buildx-
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_NAME }}/demo:$GITHUB_RUN_NUMBER
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+    - name: Move cache
       run: |
-           DOCKER_BUILDKIT=1 docker build --build-arg EXTRACTED=${{ env.EXTRACTED_DIR }} -t ebinsu/demo:$GITHUB_RUN_NUMBER .
-           docker push ebinsu/demo:$GITHUB_RUN_NUMBER
+        rm -rf /tmp/.buildx-cache
+        mv /tmp/.buildx-cache-new /tmp/.buildx-cache
