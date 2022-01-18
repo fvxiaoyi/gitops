@@ -1,6 +1,6 @@
 FROM openjdk:18-jdk-alpine
 VOLUME /app
-ARG EXTRACTED
+ARG EXTRACTED=target/extracted
 COPY ${EXTRACTED}/dependencies/ ./
 COPY ${EXTRACTED}/spring-boot-loader/ ./
 COPY ${EXTRACTED}/snapshot-dependencies/ ./
