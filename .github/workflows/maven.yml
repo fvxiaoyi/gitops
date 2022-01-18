@@ -32,7 +32,7 @@ jobs:
       run: java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted
     - name: test1
       run: |
-           ls target/
+           ls target/extracted
     - name: build image
       run: docker build -t ebinsu/demo:$GITHUB_RUN_NUMBER .
     - name: test
