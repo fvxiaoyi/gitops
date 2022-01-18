@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: test
-        run: echo ${{ GITHUB_RUN_NUMBER }}
+        run: echo ${{ github.run.number }}
 #     - uses: actions/checkout@v2
 #     - name: Set up JDK 11
 #       uses: actions/setup-java@v2
