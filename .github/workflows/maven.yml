@@ -26,5 +26,5 @@ jobs:
       run: java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted
     - name: test
       run: |
-           echo ${{env.GITHUB_RUN_NUMBER}}
+           echo $env.GITHUB_RUN_NUMBER
            docker ps -a
