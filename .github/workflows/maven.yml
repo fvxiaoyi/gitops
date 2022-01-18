@@ -24,7 +24,9 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: build and extracted
       run: java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted
+    - name: build image
+      run: docker build -t ebinsu/demo:$env.GITHUB_SHA
     - name: test
       run: |
-           echo $GITHUB_SHA
+           echo $GITHUB_RUN_NUMBER
            docker ps -a
