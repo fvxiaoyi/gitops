@@ -30,6 +30,8 @@ jobs:
       with:
         images: ebinsu/demo
         tags: $GITHUB_RUN_NUMBER
+    - name: build image
+      run: docker build -t ebinsu/demo:${{ steps.docker_meta.outputs.tags }} .
     - name: test
       run: |
            echo ${{ steps.docker_meta.outputs.tags }}
