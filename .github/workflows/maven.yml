@@ -34,7 +34,7 @@ jobs:
       run: |
            ls target/extracted
     - name: build image
-      run: docker build -t ebinsu/demo:$GITHUB_RUN_NUMBER .
+      run: docker build -t ebinsu/demo:1 .
     - name: test
       run: |
            ls  
