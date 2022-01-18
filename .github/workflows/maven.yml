@@ -32,6 +32,5 @@ jobs:
         tags: $GITHUB_RUN_NUMBER
     - name: test
       run: |
-           echo ${{ steps.docker_meta.outputs.labels }}
            echo ${{ steps.docker_meta.outputs.tags }}
            docker ps -a
