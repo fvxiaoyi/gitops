@@ -30,6 +30,8 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: build and extracted
       run: java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted
+    - name: Docker Layer Caching
+      uses: satackey/action-docker-layer-caching@v0.0.11
     - name: build and push image
       run: |
            DOCKER_BUILDKIT=1 docker build -t ebinsu/demo:$GITHUB_RUN_NUMBER .
