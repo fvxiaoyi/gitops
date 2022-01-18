@@ -30,6 +30,9 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: build and extracted
       run: java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted
+    - name: test1
+      run: |
+           ls target/
     - name: build image
       run: docker build -t ebinsu/demo:$GITHUB_RUN_NUMBER .
     - name: test
