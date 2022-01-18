@@ -24,14 +24,8 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: build and extracted
       run: java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted
-    - name: Docker Metadata action
-      id: docker_meta
-      uses: docker/metadata-action@v3.6.2
-      with:
-        images: ebinsu/demo
-        tags: $GITHUB_RUN_NUMBER
     - name: build image
-      run: docker build -t ebinsu/demo:${{ steps.docker_meta.outputs.tags }} .
+      run: docker build -t ebinsu/demo:$GITHUB_RUN_NUMBER .
     - name: test
       run: |
            echo ${{ steps.docker_meta.outputs.tags }}
