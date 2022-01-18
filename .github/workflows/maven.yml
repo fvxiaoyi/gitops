@@ -34,9 +34,4 @@ jobs:
       run: |
            ls target/extracted
     - name: build image
-      run: docker build -t ebinsu/demo:1 .
-    - name: test
-      run: |
-           ls  
-           echo ${{ steps.docker_meta.outputs.tags }}
-           docker ps -a
+      run: DOCKER_BUILDKIT=1 docker build -t ebinsu/demo:$GITHUB_RUN_NUMBER .
