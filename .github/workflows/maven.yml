@@ -40,15 +40,20 @@ jobs:
       uses: actions/cache@v2.1.7
       with:
         path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
-        restore-keys: |
-            ${{ runner.os }}-buildx-
+        key: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile') }}
+        restore-keys: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile') }}
+    - name: Docker Metadata action
+      id: docker-meta
+      uses: docker/metadata-action@v3.6.2
+      with:
+        images: ${{ secrets.DOCKER_HUB_NAME }}/demo
+        tags: $GITHUB_RUN_NUMBER
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
         context: .
         push: true
-        tags: ebinsu/demo:$GITHUB_RUN_NUMBER
+        tags: ${{ steps.docker-meta.outputs.tags }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
     - name: Move cache
