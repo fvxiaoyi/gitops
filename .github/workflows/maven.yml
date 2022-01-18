@@ -8,6 +8,9 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+    
+env:
+  EXTRACTED_DIR: target/extracted
 
 jobs:
   build:
@@ -29,10 +32,10 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: build and extracted
-      run: java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted
+      run: java -Djarmode=layertools -jar target/*.jar extract --destination ${{ env.EXTRACTED_DIR }}
     - name: Docker Layer Caching
       uses: satackey/action-docker-layer-caching@v0.0.11
     - name: build and push image
       run: |
-           DOCKER_BUILDKIT=1 docker build -t ebinsu/demo:$GITHUB_RUN_NUMBER .
+           DOCKER_BUILDKIT=1 docker build --build-arg EXTRACTED=${{ env.EXTRACTED_DIR }} -t ebinsu/demo:$GITHUB_RUN_NUMBER .
            docker push ebinsu/demo:$GITHUB_RUN_NUMBER
