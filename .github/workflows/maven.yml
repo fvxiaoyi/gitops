@@ -67,4 +67,6 @@ jobs:
         repository: fvxiaoyi/gitops-helm
         token: ${{ secrets.CI_TOKEN }}
         path: gitops-helm
-    - run: ls
+    - run: |
+       sed -i '/tag/c\  tag:${{ github.run_number }}' gitops-helm/values.yaml 
+       cat gitops-helm/values
