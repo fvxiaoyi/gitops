@@ -61,13 +61,13 @@ jobs:
 #       run: |
 #         rm -rf /tmp/.buildx-cache
 #         mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-    - name: Checkout private tools
+    - name: tigger cd repo
       uses: actions/checkout@v2
       with:
         repository: fvxiaoyi/gitops-helm
         token: ${{ secrets.CI_TOKEN }}
         path: gitops-helm
     - run: |
-       ls
-       sed -i '/tag/c\  tag:${{ github.run_number }}' gitops-helm/values.yaml 
-       cat gitops-helm/values.yaml 
+       sed -i '/tag/c\  tag:${{ github.run_number }}' gitops-helm/values.yaml
+       git commit -m "generated"
+       git push
