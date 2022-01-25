@@ -68,6 +68,7 @@ jobs:
         token: ${{ secrets.CI_TOKEN }}
         path: gitops-helm
     - run: |
-       sed -i '/tag/c\  tag:${{ github.run_number }}' gitops-helm/values.yaml
+       cd gitops-helm
+       sed -i '/tag/c\  tag:${{ github.run_number }}' values.yaml
        git commit -m "generated"
        git push
