@@ -71,5 +71,5 @@ jobs:
        cd gitops-helm
        sed -i '/tag/c\  tag:${{ github.run_number }}' values.yaml
        git config --global user.name "fvxiaoyi"
-       git commit -m "generated"
+       git commit -a -m "generated"
        git push
