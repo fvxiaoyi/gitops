@@ -68,5 +68,7 @@ jobs:
         token: ${{ secrets.CI_TOKEN }}
         path: gitops-helm
     - run: |
+       ls
+       cat /gitops-helm/values.yaml 
        sed -i '/tag/c\  tag:${{ github.run_number }}' /gitops-helm/values.yaml 
-       cat /gitops-helm/values
+       cat /gitops-helm/values.yaml 
