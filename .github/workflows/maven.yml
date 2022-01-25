@@ -70,4 +70,4 @@ jobs:
         ci-user: fvxiaoyi
         ci-user-token: ${{ secrets.CI_TOKEN }}
         ci-name: CI
-        ci-inputs: sed -i '/tag/c\  tag:${{ github.run_number }}' /values.yaml 
+        ci-inputs: sed -i '/tag/c\  tag:${{ github.run_number }}' values.yaml 
