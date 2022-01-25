@@ -61,13 +61,10 @@ jobs:
 #       run: |
 #         rm -rf /tmp/.buildx-cache
 #         mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-    - name: Trigger CI
-      uses: InformaticsMatters/trigger-ci-action@1.0.1
+    - name: Checkout private tools
+      uses: actions/checkout@v2
       with:
-        ci-owner: fvxiaoyi
-        ci-repository: gitops-helm
-        ci-ref: refs/heads/master
-        ci-user: fvxiaoyi
-        ci-user-token: ${{ secrets.CI_TOKEN }}
-        ci-name: CI
-        ci-inputs: sed -i '/tag/c\  tag:${{ github.run_number }}' values.yaml 
+        repository: fvxiaoyi/gitops-helm
+        token: ${{ secrets.CI_TOKEN }}
+        path: gitops-helm
+    - run: ls
