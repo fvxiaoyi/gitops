@@ -12,7 +12,7 @@ on:
       - '.github/workflows/order-service.yaml'
 
 env:
-  DOCKER_BUILD_PATH: order-service/
+  DOCKER_BUILD_PATH: order-service/.
   TARGET_JAR_PATH: order-service/target/*.jar
   EXTRACTED_DIR: order-service/target/extracted
 
