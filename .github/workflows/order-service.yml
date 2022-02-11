@@ -7,8 +7,9 @@ name: Java CI with Maven
 on:
   push:
     branches: [ master ]
-#    paths:
-#      - 'order-service/**'
+    paths:
+      - 'order-service/**'
+      - '.github/workflows/order-service.yaml'
 
 env:
   DOCKER_BUILD_PATH: order-service/
