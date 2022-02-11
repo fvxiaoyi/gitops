@@ -10,6 +10,6 @@ public class DemoController {
 
     @GetMapping("/test")
     public Map<String, String> demo() {
-        return Map.of("test", "test");
+        return Map.of("test", "test1");
     }
 }
