@@ -7,11 +7,10 @@ name: Java CI with Maven
 on:
   push:
     branches: [ master ]
-    paths:
-      - 'order-service/**'
+#     paths:
+#       - 'order-service/**'
 
 env:
-  DOCKER_BUILD_PATH: order-service/.
   TARGET_JAR_PATH: order-service/target/*.jar
   EXTRACTED_DIR: order-service/target/extracted
 
@@ -62,7 +61,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ${{ DOCKER_BUILD_PATH }}
+          context: order-service/.
           push: true
           tags: ${{ steps.docker-meta.outputs.tags }}
           cache-from: type=local,src=/tmp/.buildx-cache
