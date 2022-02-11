@@ -9,7 +9,7 @@ on:
     branches: [ master ]
     paths:
       - 'order-service/**'
-      - '.github/workflows/order-service.yaml'
+      - 'workflows/order-service.yaml'
 
 env:
   DOCKER_BUILD_PATH: order-service/.
