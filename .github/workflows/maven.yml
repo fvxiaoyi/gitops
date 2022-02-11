@@ -7,8 +7,8 @@ name: Java CI with Maven
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    paths:
+      - 'order-service/**'
     
 env:
   EXTRACTED_DIR: target/extracted
