@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 public class Payment {
-    String id;
-    Double amount;
+    public String id;
+    public Double amount;
 
     public String getId() {
         return id;
@@ -20,11 +20,4 @@ public class Payment {
         this.amount = amount;
     }
 
-    @Override
-    public String toString() {
-        return "Payment{" +
-                "id='" + id + '\'' +
-                ", amount=" + amount +
-                '}';
-    }
 }
