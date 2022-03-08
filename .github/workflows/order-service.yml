@@ -72,16 +72,16 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-      - name: tigger cd repo
-        uses: actions/checkout@v2
-        with:
-          repository: fvxiaoyi/gitops-helm
-          token: ${{ secrets.CI_TOKEN }}
-          path: gitops-helm
+#       - name: tigger cd repo
+#         uses: actions/checkout@v2
+#         with:
+#           repository: fvxiaoyi/gitops-helm
+#           token: ${{ secrets.CI_TOKEN }}
+#           path: gitops-helm
 
-      - run: |
-          cd gitops-helm
-          sed -i '/tag/c\  tag: ${{ github.run_number }}' values.yaml
-          git config --global user.name "fvxiaoyi"
-          git commit -a -m "generated"
-          git push
+#       - run: |
+#           cd gitops-helm
+#           sed -i '/tag/c\  tag: ${{ github.run_number }}' values.yaml
+#           git config --global user.name "fvxiaoyi"
+#           git commit -a -m "generated"
+#           git push
