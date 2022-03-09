@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.IPaymentService;
+import com.example.demo.service.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class OrderController {
     @GetMapping("/place")
 //    @Transactional
     public Map<String, String> demo() throws InterruptedException {
-//        Payment payment = paymentService.get("1");
-//        System.out.println(payment);
+        Payment payment = paymentService.get("1");
+        logger.info(payment.toString());
 //        Thread.sleep(10000L);
         logger.info(environment.getProperty("order.placeV2.enabled"));
         logger.info(username);
