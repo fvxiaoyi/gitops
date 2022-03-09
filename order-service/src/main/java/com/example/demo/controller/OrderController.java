@@ -38,9 +38,16 @@ public class OrderController {
     public Map<String, String> demo() throws InterruptedException {
         Payment payment = paymentService.get("1");
         logger.info(payment.toString());
-//        Thread.sleep(10000L);
+
+        if (enableV2) {
+            return Map.of("v2", "v2");
+        }
+        return Map.of("test", "test1");
+    }
+
+    @GetMapping("/place/v2")
+    public Map<String, String> place() throws InterruptedException {
         logger.info(environment.getProperty("order.placeV2.enabled"));
-        logger.info(username);
 
         if (enableV2) {
             return Map.of("v2", "v2");
