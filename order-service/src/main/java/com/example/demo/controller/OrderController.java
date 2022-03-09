@@ -47,8 +47,9 @@ public class OrderController {
 
     @GetMapping("/place/v2")
     public Map<String, String> place() throws InterruptedException {
-        logger.info(environment.getProperty("order.placeV2.enabled"));
-
+        logger.info("info");
+        logger.warn("warn");
+        logger.error("error");
         if (enableV2) {
             return Map.of("v2", "v2");
         }

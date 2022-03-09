@@ -17,8 +17,8 @@
             <charset class="java.nio.charset.Charset">UTF-8</charset>
         </encoder>
         <target>System.err</target>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN|ERROR</level>
+        <filter class="com.example.demo.core.MultiLevelFilter">
+            <levels>WARN,ERROR</levels>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
@@ -33,7 +33,7 @@
     </appender>
 
     <root level="INFO">
-        <appender-ref ref="ASYNC_STDOUT"/>
-        <appender-ref ref="ASYNC_STDERR"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="STDERR"/>
     </root>
 </configuration>
