@@ -7,8 +7,8 @@ name: Java CI with Maven
 on:
   push:
     branches: [ master ]
-    paths:
-      - 'payment-service/**'
+#     paths:
+#       - 'payment-service/**'
 
 env:
   SERVICE_NAME: payment-service
