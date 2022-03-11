@@ -31,6 +31,7 @@ jobs:
         run: |
           cd ${{ env.SERVICE_NAME }}
           mvn -B package --file pom.xml
+          cd ..
 
       - name: build and extracted
         run: java -Djarmode=layertools -jar ${{ env.TARGET_JAR_PATH }} extract --destination ${{ env.EXTRACTED_DIR }}
@@ -42,7 +43,7 @@ jobs:
       - name: Cache Docker layers
         uses: actions/cache@v2.1.7
         with:
-          path: /tmp/${{ env.SERVICE_NAME }}/.buildx-cache
+          path: /tmp/.buildx-cache
           key: ${{ runner.os }}-${{ env.SERVICE_NAME }}-buildx-${{ hashFiles('**/Dockerfile') }}
           restore-keys: ${{ runner.os }}-${{ env.SERVICE_NAME }}-buildx-${{ hashFiles('**/Dockerfile') }}
 
@@ -71,8 +72,8 @@ jobs:
 
       - name: Move cache
         run: |
-          rm -rf /tmp/${{ env.SERVICE_NAME }}/.buildx-cache
-          mv /tmp/${{ env.SERVICE_NAME }}/.buildx-cache-new /tmp/${{ env.SERVICE_NAME }}/.buildx-cache
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
 #       - name: tigger cd repo
 #         uses: actions/checkout@v2
