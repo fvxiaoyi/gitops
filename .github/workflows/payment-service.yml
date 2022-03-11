@@ -28,10 +28,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: |
-          cd ${{ env.SERVICE_NAME }}
-          mvn -B package --file pom.xml
-          cd ..
+        run: mvn -B package --file ${{ env.SERVICE_NAME }}/pom.xml
 
       - name: build and extracted
         run: java -Djarmode=layertools -jar ${{ env.TARGET_JAR_PATH }} extract --destination ${{ env.EXTRACTED_DIR }}
