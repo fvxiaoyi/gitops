@@ -43,8 +43,8 @@ jobs:
         uses: actions/cache@v2.1.7
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile') }}
-          restore-keys: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile') }}
+          key: ${{ runner.os }}-${{ env.SERVICE_NAME }}-buildx-${{ hashFiles('**/Dockerfile') }}
+          restore-keys: ${{ runner.os }}-${{ env.SERVICE_NAME }}-buildx-${{ hashFiles('**/Dockerfile') }}
 
       - name: Docker Metadata action
         id: docker-meta
