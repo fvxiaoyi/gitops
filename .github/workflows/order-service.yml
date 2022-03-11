@@ -7,8 +7,8 @@ name: Java CI with Maven
 on:
   push:
     branches: [ master ]
-#     paths:
-#       - 'order-service/**'
+    paths:
+      - 'order-service/**'
 
 env:
   TARGET_JAR_PATH: order-service/target/*.jar
