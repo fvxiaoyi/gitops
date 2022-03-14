@@ -1,4 +1,6 @@
 FROM openjdk:18-jdk-alpine
+RUN addgroup --system app && adduser --system --no-create-home --ingroup app app
+USER app
 VOLUME /app
 ARG EXTRACTED=target/extracted
 COPY run.sh ./
