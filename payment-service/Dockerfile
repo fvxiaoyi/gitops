@@ -8,7 +8,7 @@ COPY ${EXTRACTED}/dependencies/ ./
 COPY ${EXTRACTED}/spring-boot-loader/ ./
 COPY ${EXTRACTED}/snapshot-dependencies/ ./
 COPY ${EXTRACTED}/application/ ./
-ENTRYPOINT ["/bin/bash","/run.sh"]
+ENTRYPOINT ["sh","./run.sh"]
 
 #FROM openjdk:18-jdk-alpine
 #VOLUME /tmp
