@@ -1,11 +1,12 @@
 FROM openjdk:18-jdk-alpine
 VOLUME /app
 ARG EXTRACTED=target/extracted
+COPY run.sh ./
 COPY ${EXTRACTED}/dependencies/ ./
 COPY ${EXTRACTED}/spring-boot-loader/ ./
 COPY ${EXTRACTED}/snapshot-dependencies/ ./
 COPY ${EXTRACTED}/application/ ./
-ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]
+ENTRYPOINT ["./run.sh"]
 
 #FROM openjdk:18-jdk-alpine
 #VOLUME /tmp
