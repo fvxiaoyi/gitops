@@ -8,7 +8,7 @@ COPY ${EXTRACTED}/dependencies/ ./
 COPY ${EXTRACTED}/spring-boot-loader/ ./
 COPY ${EXTRACTED}/snapshot-dependencies/ ./
 COPY ${EXTRACTED}/application/ ./
-ENTRYPOINT ["./run.sh"]
+ENTRYPOINT ["/bin/bash","/run.sh"]
 #ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 
 #FROM openjdk:18-jdk-alpine
