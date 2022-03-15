@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.BusinessException;
 import com.example.demo.service.IPaymentService;
 import com.example.demo.service.Payment;
 import org.slf4j.Logger;
@@ -54,5 +55,15 @@ public class OrderController {
             return Map.of("v2", "v2");
         }
         return Map.of("test", "test1");
+    }
+
+    @GetMapping("/place/v3")
+    public Map<String, String> placeV3() throws InterruptedException {
+        throw new BusinessException("no support", "NO_SUPPORT");
+    }
+
+    @GetMapping("/place/v4")
+    public Map<String, String> placeV4() throws InterruptedException {
+        throw new RuntimeException("no support");
     }
 }
