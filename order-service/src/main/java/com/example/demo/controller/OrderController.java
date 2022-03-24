@@ -66,4 +66,16 @@ public class OrderController {
     public Map<String, String> placeV4() throws InterruptedException {
         throw new RuntimeException("no support");
     }
+
+    @GetMapping("/place/v5")
+    public Map<String, String> placeV5() throws InterruptedException {
+        byte[] bytes = new byte[1024 * 1024];
+        return Map.of("test", "test1");
+    }
+
+    @GetMapping("/place/v6")
+    public Map<String, String> placeV6() throws InterruptedException {
+        byte[] bytes = new byte[4 * 1024 * 1024];
+        return Map.of("test", "test1");
+    }
 }
