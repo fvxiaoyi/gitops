@@ -4,13 +4,12 @@ pipeline {
         }
     }
     stages {
-        stage('Build') {
-            container('maven') {
-                sh 'mvn -B -DskipTests clean package'
+        stage('Run maven') {
+            steps {
+                container('maven') {
+                     sh 'mvn -B -DskipTests clean package'
+                }
             }
-//             steps {
-//                 sh 'mvn -B -DskipTests clean package'
-//             }
         }
     }
 }
