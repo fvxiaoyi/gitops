@@ -12,8 +12,10 @@ pipeline {
           containers:
           - name: maven
             image: maven:3-openjdk-11-slim
+            command: "cat"
           - name: docker
             image: docker:20.10.14-alpine3.15
+            command: "cat"
       """
     }
   }
