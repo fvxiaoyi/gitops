@@ -12,11 +12,13 @@ pipeline {
           containers:
           - name: maven
             image: maven:3-openjdk-11-slim
-            command: 'sleep'
+            command:
+              - sleep
             args: '99d'
           - name: docker
             image: docker:20.10.14
-            command: 'sleep'
+            command:
+              - sleep
             args: '99d'
       """
     }
