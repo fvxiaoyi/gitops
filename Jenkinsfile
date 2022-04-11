@@ -18,12 +18,19 @@ pipeline {
     }
   }
   stages {
-    stage('build') {
+    stage('maven build') {
       steps {
         container('maven') {
           sh 'mvn -B -DskipTests clean package'
         }
       }
+    }
+    stage('Docker Build') {
+        steps {
+            container('docker') {
+                sh "docker build -t dockerimage ."
+            }
+        }
     }
   }
 }
