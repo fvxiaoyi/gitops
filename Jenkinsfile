@@ -1,14 +1,16 @@
 pipeline {
     agent {
         kubernetes {
-            inheritFrom 'jenkins-maven'
         }
     }
     stages {
         stage('Build') {
-            steps {
+            container('maven') {
                 sh 'mvn -B -DskipTests clean package'
             }
+//             steps {
+//                 sh 'mvn -B -DskipTests clean package'
+//             }
         }
     }
 }
