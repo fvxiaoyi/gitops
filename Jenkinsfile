@@ -15,7 +15,7 @@ pipeline {
             command:
               - cat
           - name: docker
-            image: docker:20.10.14-alpine3.15
+            image: docker:20.10.14
             command:
               - cat
       """
