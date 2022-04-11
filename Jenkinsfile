@@ -1,7 +1,7 @@
 pipeline {
     agent {
-        node {
-            label 'maven'
+        kubernetes {
+            inheritFrom 'jenkins-maven'
         }
     }
     stages {
