@@ -1,13 +1,16 @@
 pipeline {
-  agent {
-        label "default"
-  }
+  agent none
+
   stages {
-        stage('Build') {
-             steps {
-                sh 'mvn clean compile'
-             }
-         }
+    stage('Build') {
+      agent {
+        label 'maven'
+      }
+      steps {
+        checkout scm
+        sh './mvnw -DskipTests clean package'
+      }
+    }
   }
 }
 
