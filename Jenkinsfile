@@ -1,17 +1,19 @@
 pipeline {
-  agent none
-
-  stages {
-    stage('Build') {
-      agent {
-        label 'maven'
-      }
-      steps {
-        checkout scm
-        sh './mvnw -DskipTests clean package'
-      }
+  	agent {
+  		label "default"
+  	}
+  	stages {
+    		stage('Build') {
+    			agent {
+    				label "default"
+    			}
+    			steps {
+    				sh 'ls -la'
+    				sh 'mvn -version'
+    				sh 'mvn clean compile'
+    			}
+    		}
     }
-  }
 }
 
 // pipeline {
