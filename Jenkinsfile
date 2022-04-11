@@ -3,16 +3,14 @@ pipeline {
   		label "default"
   	}
   	stages {
-    		stage('Build') {
-    			agent {
-    				label "default"
-    			}
-    			steps {
-    				sh 'ls -la'
-    				sh 'mvn -version'
-    				sh 'mvn clean compile'
-    			}
-    		}
+        stage('Maven Build') {
+            agent {
+                label "maven"
+            }
+            steps {
+                sh 'mvn -B -DskipTests clean package'
+            }
+        }
     }
 }
 
