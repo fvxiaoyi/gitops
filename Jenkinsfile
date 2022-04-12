@@ -16,7 +16,7 @@ pipeline {
                 script {
                     findFiles(glob: '**/Dockerfile').each{ file ->
                         def path = df.path
-                        sh 'echo path'
+                        echo path
                     }
                 }
             }
