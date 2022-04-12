@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Maven Build') {
+        /* stage('Maven Build') {
             agent {
                 docker {
                     image 'maven:3.8.1-adoptopenjdk-11'
@@ -14,12 +14,12 @@ pipeline {
                     findFiles(glob: '**-service/Dockerfile').each{ file ->
                         def serviceDir = file.path.split('/')[0]
                         dir( serviceDir ) {
-                            sh 'java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted'
+                            sh 'java -Djarmode=layertools -jar target *//*.jar extract --destination target/extracted'
                         }
                     }
                 }
             }
-        }
+        } */
         stage('Docker Build') {
             agent {
                 docker {
@@ -28,16 +28,17 @@ pipeline {
             }
             steps {
                 script {
-                    def dockerRegistry = "https://hub.docker.com/"
-                    findFiles(glob: '**-service/Dockerfile').each{ file ->
-                        def serviceDir = file.path.split('/')[0]
-                        dir( serviceDir ) {
-                            docker.withRegistry("${dockerRegistry}", "docker-login") {
-                              def img = docker.build("${reg}/ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
-                              img.push()
-                            }
-                        }
+                    def dockerRegistry = "https://registry.hub.docker.com/"
+                    docker.withRegistry("${dockerRegistry}", "docker-login") {
+                       findFiles(glob: '**-service/Dockerfile').each{ file ->
+                           def serviceDir = file.path.split('/')[0]
+                           dir( serviceDir ) {
+                               def img = docker.build("ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
+                               img.push()
+                           }
+                       }
                     }
+
                 }
             }
         }
