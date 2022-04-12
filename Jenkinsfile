@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        /* stage('Maven Build') {
+        stage('Maven Build') {
             agent {
                 docker {
                     image 'maven:3.8.1-adoptopenjdk-11'
@@ -19,7 +19,7 @@ pipeline {
                     }
                 }
             }
-        } */
+        }
         stage('Docker Build') {
             agent {
                 docker {
