@@ -14,13 +14,16 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
+                    def dockerRegistry = "https://hub.docker.com/"
                     findFiles(glob: '**-service/Dockerfile').each{ file ->
                         def path = file.path
-                        def dfDir = path.split('/')[0]
-                        dir( dfDir ) {
-                            sh "echo `ls`"
+                        def serviceDir = path.split('/')[0]
+                        dir( serviceDir ) {
                             sh 'java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted'
-                            sh "echo `ls`"
+                            docker.withRegistry("${dockerRegistry}", "docker-login") {
+                              def img = docker.build("${reg}/ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
+                              img.push()
+                            }
                         }
                     }
                 }
