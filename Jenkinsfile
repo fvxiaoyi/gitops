@@ -1,27 +1,29 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3-openjdk-11-slim'
+            args '-v /root/.m2:/root/.m2 -v /usr/bin/docker:/usr/bin/docker'
+        }
+    }
     stages {
         stage('Maven Build') {
-            agent {
-                docker {
-                    image 'maven:3-openjdk-11-slim'
-                    args '-v /root/.m2:/root/.m2'
-                }
-            }
             steps {
                 sh 'mvn -B -DskipTests clean package'
-                script {
-                    findFiles(glob: '**-service/Dockerfile').each{ file ->
-                        def serviceDir = file.path.split('/')[0]
-                        dir( serviceDir ) {
-                            sh "echo `ls target/`"
-                            sh 'java -Djarmode=layertools -jar target target/*.jar extract --destination target/extracted'
-                        }
-                    }
+
+                def dockerRegistry = "https://registry.hub.docker.com/"
+                docker.withRegistry("${dockerRegistry}", "docker-login") {
+                   findFiles(glob: '**-service/Dockerfile').each{ file ->
+                       def serviceDir = file.path.split('/')[0]
+                       dir( serviceDir ) {
+                           sh 'java -Djarmode=layertools -jar target target/*.jar extract --destination target/extracted'
+                           def img = docker.build("ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
+                           img.push()
+                       }
+                   }
                 }
             }
         }
-        stage('Docker Build') {
+        /* stage('Docker Build') {
             agent {
                 docker {
                     image 'docker:20.10.14'
@@ -43,7 +45,7 @@ pipeline {
 
                 }
             }
-        }
+        } */
     }
 }
 
