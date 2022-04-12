@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Maven Build') {
+        /* stage('Maven Build') {
             agent {
                 docker {
                     image 'maven:3.8.1-adoptopenjdk-11'
@@ -9,15 +9,13 @@ pipeline {
                 }
             }
             steps {
-                sh 'docker ps -a'
                 sh 'mvn -B -DskipTests clean package'
             }
-        }
+        } */
         stage('Docker Build') {
             agent {
                 docker {
-                    image 'maven:3.8.1-adoptopenjdk-11'
-                    args '-v /root/.m2:/root/.m2'
+                    image 'docker:20.10.14'
                 }
             }
             steps {
