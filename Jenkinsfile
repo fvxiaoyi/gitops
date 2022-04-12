@@ -14,7 +14,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    findFiles(glob: '**/Dockerfile').each{ file ->
+                    findFiles(glob: '**-service/Dockerfile').each{ file ->
                         def path = file.path
                         echo path
                     }
