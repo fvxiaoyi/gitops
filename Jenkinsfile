@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        /* stage('Maven Build') {
+        stage('Maven Build') {
             agent {
                 docker {
                     image 'maven:3.8.1-adoptopenjdk-11'
@@ -10,8 +10,14 @@ pipeline {
             }
             steps {
                 sh 'mvn -B -DskipTests clean package'
+                findFiles(glob: '**-service/Dockerfile').each{ file ->
+                    def serviceDir = file.path.split('/')[0]
+                    dir( serviceDir ) {
+                        sh 'java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted'
+                    }
+                }
             }
-        } */
+        }
         stage('Docker Build') {
             agent {
                 docker {
@@ -22,10 +28,8 @@ pipeline {
                 script {
                     def dockerRegistry = "https://hub.docker.com/"
                     findFiles(glob: '**-service/Dockerfile').each{ file ->
-                        def path = file.path
-                        def serviceDir = path.split('/')[0]
+                        def serviceDir = file.path.split('/')[0]
                         dir( serviceDir ) {
-                            sh 'java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted'
                             docker.withRegistry("${dockerRegistry}", "docker-login") {
                               def img = docker.build("${reg}/ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
                               img.push()
