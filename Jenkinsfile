@@ -4,7 +4,7 @@ pipeline {
         stage('Maven Build') {
             agent {
                 docker {
-                    image 'maven:3.8.1-adoptopenjdk-11'
+                    image 'maven:3-openjdk-11-slim'
                     args '-v /root/.m2:/root/.m2'
                 }
             }
