@@ -15,7 +15,7 @@ pipeline {
                         def serviceDir = file.path.split('/')[0]
                         dir( serviceDir ) {
                             sh "echo `ls`"
-                            sh 'java -Djarmode=layertools -jar target */*.jar extract --destination target/extracted'
+                            sh 'java -Djarmode=layertools -jar target target/*.jar extract --destination target/extracted'
                         }
                     }
                 }
