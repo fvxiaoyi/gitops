@@ -17,7 +17,11 @@ pipeline {
                     findFiles(glob: '**-service/Dockerfile').each{ file ->
                         def path = file.path
                         def dir = path.split('/')[0]
-                        echo dir
+                        dir( dfDir ) {
+                            sh "echo `ls`"
+                            sh 'java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted'
+                            sh "echo `ls`"
+                        }
                     }
                 }
             }
