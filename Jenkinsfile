@@ -14,9 +14,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    findFiles(glob: '**/Dockerfile').each{ df->
-                        sh 'echo df.path'
-                    }
+                    def files = findFiles(glob: '**/Dockerfile.xml')
                 }
             }
         }
