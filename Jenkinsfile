@@ -10,10 +10,12 @@ pipeline {
             }
             steps {
                 sh 'mvn -B -DskipTests clean package'
-                findFiles(glob: '**-service/Dockerfile').each{ file ->
-                    def serviceDir = file.path.split('/')[0]
-                    dir( serviceDir ) {
-                        sh 'java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted'
+                script {
+                    findFiles(glob: '**-service/Dockerfile').each{ file ->
+                        def serviceDir = file.path.split('/')[0]
+                        dir( serviceDir ) {
+                            sh 'java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted'
+                        }
                     }
                 }
             }
