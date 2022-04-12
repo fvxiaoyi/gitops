@@ -16,7 +16,8 @@ pipeline {
                 script {
                     findFiles(glob: '**-service/Dockerfile').each{ file ->
                         def path = file.path
-                        echo path
+                        def dir = path.split('/')[0]
+                        echo dir
                     }
                 }
             }
