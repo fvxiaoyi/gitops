@@ -1,18 +1,35 @@
 pipeline {
-  	agent {
-  		label "default"
-  	}
-  	stages {
-        stage('Maven Build') {
-            agent {
-                label "maven"
-            }
+    agent any
+
+    stages {
+        stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
     }
 }
+
+// pipeline {
+//   	agent {
+//   		label "default"
+//   	}
+//   	stages {
+//         stage('Maven Build') {
+//             agent {
+//                 label "maven"
+//             }
+//             steps {
+//                 sh 'mvn -B -DskipTests clean package'
+//             }
+//         }
+//     }
+// }
 
 // pipeline {
 //   agent {
