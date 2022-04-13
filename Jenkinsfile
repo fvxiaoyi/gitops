@@ -10,16 +10,28 @@ pipeline {
             steps {
                 sh 'mvn -B -DskipTests clean package'
                 script {
-                    docker.withRegistry("", "docker-login") {
+                    /* docker.withRegistry("", "docker-login") {
                        findFiles(glob: '**-service/Dockerfile').each{ file ->
                            def serviceDir = file.path.split('/')[0]
                            dir( serviceDir ) {
-                               sh 'java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted'
+                               sh 'java -Djarmode=layertools -jar target *//*.jar extract --destination target/extracted'
                                def img = docker.build("ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
                                img.push()
                            }
                        }
-                    }
+                    } */
+
+                   findFiles(glob: '**-service/Dockerfile').each{ file ->
+                       def serviceDir = file.path.split('/')[0]
+                       dir( serviceDir ) {
+                           sh 'java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted'
+                           docker.withRegistry("", "docker-login") {
+                               def img = docker.build("ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
+                               img.push()
+                           }
+                       }
+                   }
+
                 }
             }
         }
