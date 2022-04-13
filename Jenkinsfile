@@ -1,4 +1,4 @@
-/* pipeline {
+pipeline {
     agent {
         docker {
             image 'maven:3.8.5-openjdk-17-slim'
@@ -24,32 +24,32 @@
             }
         }
     }
-} */
-
-pipeline {
-  	agent {
-  		label "maven"
-  	}
-  	stages {
-        stage('Maven Build') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-                script {
-                    docker.withRegistry("", "docker-login") {
-                       findFiles(glob: '**-service/Dockerfile').each{ file ->
-                           def serviceDir = file.path.split('/')[0]
-                           dir( serviceDir ) {
-                               sh 'java -Djarmode=layertools -jar target *//*.jar extract --destination target/extracted'
-                               def img = docker.build("ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
-                               img.push()
-                           }
-                       }
-                    }
-                }
-            }
-        }
-    }
 }
+
+// pipeline {
+//   	agent {
+//   		label "maven"
+//   	}
+//   	stages {
+//         stage('Maven Build') {
+//             steps {
+//                 sh 'mvn -B -DskipTests clean package'
+//                 script {
+//                     docker.withRegistry("", "docker-login") {
+//                        findFiles(glob: '**-service/Dockerfile').each{ file ->
+//                            def serviceDir = file.path.split('/')[0]
+//                            dir( serviceDir ) {
+//                                sh 'java -Djarmode=layertools -jar target *//*.jar extract --destination target/extracted'
+//                                def img = docker.build("ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
+//                                img.push()
+//                            }
+//                        }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 // pipeline {
 //   agent {
