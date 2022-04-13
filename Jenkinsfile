@@ -1,4 +1,4 @@
-pipeline {
+/* pipeline {
     agent {
         docker {
             image 'maven:3.8.5-openjdk-17-slim'
@@ -10,7 +10,7 @@ pipeline {
             steps {
                 sh 'mvn -B -DskipTests clean package'
                 script {
-                    /* docker.withRegistry("", "docker-login") {
+                    docker.withRegistry("", "docker-login") {
                        findFiles(glob: '**-service/Dockerfile').each{ file ->
                            def serviceDir = file.path.split('/')[0]
                            dir( serviceDir ) {
@@ -19,63 +19,37 @@ pipeline {
                                img.push()
                            }
                        }
-                    } */
-
-                   findFiles(glob: '**-service/Dockerfile').each{ file ->
-                       def serviceDir = file.path.split('/')[0]
-                       dir( serviceDir ) {
-                           sh 'java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted'
-                           docker.withRegistry("", "docker-login") {
-                               def img = docker.build("ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
-                               img.push()
-                           }
-                       }
-                   }
-
+                    }
                 }
             }
         }
-        /* stage('Docker Build') {
-            agent {
-                docker {
-                    image 'docker:20.10.14'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'
-                }
-            }
+    }
+} */
+
+pipeline {
+  	agent {
+  		label "maven"
+  	}
+  	stages {
+        stage('Maven Build') {
             steps {
+                sh 'mvn -B -DskipTests clean package'
                 script {
-                    def dockerRegistry = "https://registry.hub.docker.com/"
-                    docker.withRegistry("${dockerRegistry}", "docker-login") {
+                    docker.withRegistry("", "docker-login") {
                        findFiles(glob: '**-service/Dockerfile').each{ file ->
                            def serviceDir = file.path.split('/')[0]
                            dir( serviceDir ) {
+                               sh 'java -Djarmode=layertools -jar target *//*.jar extract --destination target/extracted'
                                def img = docker.build("ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
                                img.push()
                            }
                        }
                     }
-
                 }
             }
-        } */
+        }
     }
 }
-
-// pipeline {
-//   	agent {
-//   		label "default"
-//   	}
-//   	stages {
-//         stage('Maven Build') {
-//             agent {
-//                 label "maven"
-//             }
-//             steps {
-//                 sh 'mvn -B -DskipTests clean package'
-//             }
-//         }
-//     }
-// }
 
 // pipeline {
 //   agent {
@@ -125,22 +99,4 @@ pipeline {
 //         }
 //     }
 //   }
-// }
-
-
-// pipeline {
-//     agent {
-//         kubernetes {
-//             defaultContainer 'maven'
-//         }
-//     }
-//     stages {
-//         stage('Run maven') {
-//             steps {
-//                 container('maven') {
-//                      sh 'mvn -B -DskipTests clean package'
-//                 }
-//             }
-//         }
-//     }
 // }
