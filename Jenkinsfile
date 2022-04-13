@@ -9,6 +9,7 @@ pipeline {
         stage('Maven Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
+                sh "echo `java -version`"
                 script {
                     def dockerRegistry = "https://registry.hub.docker.com/"
                     docker.withRegistry("${dockerRegistry}", "docker-login") {
