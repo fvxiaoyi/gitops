@@ -6,14 +6,14 @@ pipeline {
         }
     } */
     agent any
+    tools {
+        maven 'maven'
+        jdk 'jdk-17'
+    }
     stages {
         stage('Maven Build') {
             steps {
-                withMaven(
-                    maven: 'maven'
-                ) {
-                    sh 'mvn -e -B -DskipTests clean package'
-                }
+                sh 'mvn -e -B -DskipTests clean package'
                 script {
                     docker.withRegistry("", "docker-login") {
                        findFiles(glob: '**-service/Dockerfile').each{ file ->
