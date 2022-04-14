@@ -19,7 +19,7 @@ pipeline {
                        findFiles(glob: '**-service/Dockerfile').each{ file ->
                            def serviceDir = file.path.split('/')[0]
                            dir( serviceDir ) {
-                               sh 'java -Djarmode=layertools -jar target *//*.jar extract --destination target/extracted'
+                               sh 'java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted'
                                def img = docker.build("ebinsu/${serviceDir}:${env.BUILD_NUMBER}", ".")
                                img.push()
                            }
