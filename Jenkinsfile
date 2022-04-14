@@ -12,7 +12,7 @@ pipeline {
                 withMaven(
                     maven: 'maven'
                 ) {
-                    sh 'mvn -B -DskipTests clean package'
+                    sh 'mvn -e -B -DskipTests clean package'
                 }
                 script {
                     docker.withRegistry("", "docker-login") {
