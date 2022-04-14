@@ -9,7 +9,9 @@ pipeline {
     stages {
         stage('Maven Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                withMaven {
+                    sh 'mvn -B -DskipTests clean package'
+                }
                 script {
                     docker.withRegistry("", "docker-login") {
                        findFiles(glob: '**-service/Dockerfile').each{ file ->
