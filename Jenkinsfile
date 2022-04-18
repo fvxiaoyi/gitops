@@ -13,7 +13,6 @@ pipeline {
     stages {
         stage('Maven Build') {
             steps {
-                sh "echo `cat /run/secrets/jenkins-secret-dockerhub-password`"
                 sh 'mvn -e -B -DskipTests clean package'
                 script {
                     docker.withRegistry("", "docker-login") {
