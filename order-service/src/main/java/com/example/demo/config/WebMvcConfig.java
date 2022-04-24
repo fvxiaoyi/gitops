@@ -1,6 +1,5 @@
 package com.example.demo.config;
 
-import io.opentelemetry.api.trace.Span;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -47,13 +46,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
             Map<String, Object> cmdMsg = new HashMap<>();
             cmdMsg.put("msg", ex.getMessage());
 
-            Span currentSpan = Span.current();
             if (ex instanceof BusinessException) {
                 cmdMsg.put("error_code", ((BusinessException) ex).errorCode());
-                currentSpan.setAttribute("error_code", ((BusinessException) ex).errorCode());
+                response.setHeader("error_code", ((BusinessException) ex).errorCode());
             } else {
                 cmdMsg.put("error_code", "INTERNAL_ERROR");
-                currentSpan.setAttribute("error_code", "INTERNAL_ERROR");
+                response.setHeader("error_code", "INTERNAL_SERVER_ERROR");
             }
 
             mv.addObject("exception", cmdMsg);
