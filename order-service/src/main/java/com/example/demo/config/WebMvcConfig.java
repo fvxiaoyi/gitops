@@ -61,7 +61,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         @Override
         protected void logException(Exception ex, HttpServletRequest request) {
-//            super.logException(ex, request);
             logger.error(ex.getMessage(), ex);
         }
 
