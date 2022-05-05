@@ -23,7 +23,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         resolvers.add(new MyHandlerExceptionResolver());
     }
 
-    class MyHandlerExceptionResolver extends AbstractHandlerExceptionResolver {
+    static class MyHandlerExceptionResolver extends AbstractHandlerExceptionResolver {
         private final Logger logger = LoggerFactory.getLogger(MyHandlerExceptionResolver.class);
         private final MappingJackson2JsonView jsonView;
 
