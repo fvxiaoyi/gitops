@@ -35,7 +35,6 @@ public class OrderController {
     Environment environment;
 
     @GetMapping("/insert")
-//    @Transactional
     public void insert() throws InterruptedException {
         paymentService.insert();
     }
