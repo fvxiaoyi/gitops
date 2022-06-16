@@ -26,6 +26,7 @@ public class PaymentController {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
+
         jdbcTemplate.execute(" INSERT INTO demo.tracking(id,qty) VALUES ('" + ia.getHostName() + "', 1)  ON DUPLICATE KEY UPDATE qty=qty+1; ");
     }
 
