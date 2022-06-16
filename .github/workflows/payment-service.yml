@@ -2,7 +2,7 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
 
-name: Java CI with Maven
+name: payment-service
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: mvn -B package --file ${{ env.SERVICE_NAME }}/pom.xml
+        run: mvn -B package -Dmaven.test.skip=true --file ${{ env.SERVICE_NAME }}/pom.xml
 
       - name: build and extracted
         run: java -Djarmode=layertools -jar ${{ env.TARGET_JAR_PATH }} extract --destination ${{ env.EXTRACTED_DIR }}
