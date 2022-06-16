@@ -10,4 +10,7 @@ public interface IPaymentService {
 
     @GetMapping("/{userId}")
     Payment get(@PathVariable String userId);
+
+    @GetMapping("/insert")
+    void insert();
 }

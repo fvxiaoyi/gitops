@@ -8,4 +8,9 @@ public class PaymentService implements IPaymentService {
     public Payment get(String userId) {
         return null;
     }
+
+    @Override
+    public void insert() {
+
+    }
 }
