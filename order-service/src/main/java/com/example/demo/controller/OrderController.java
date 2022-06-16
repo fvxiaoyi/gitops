@@ -34,6 +34,12 @@ public class OrderController {
     @Autowired
     Environment environment;
 
+    @GetMapping("/insert")
+//    @Transactional
+    public void insert() throws InterruptedException {
+        paymentService.insert();
+    }
+
     @GetMapping("/place")
 //    @Transactional
     public Map<String, String> demo() throws InterruptedException {
