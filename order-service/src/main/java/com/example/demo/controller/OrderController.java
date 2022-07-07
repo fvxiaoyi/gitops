@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -28,11 +29,19 @@ public class OrderController {
     @Value("${order.placeV2.enabled}")
     boolean enableV2;
 
+    @Value("${spring.datasource.url}")
+    String datasourceURL;
+
     @Value("${username}")
     String username;
 
     @Autowired
     Environment environment;
+
+    @GetMapping("/ip")
+    public String ip(HttpServletRequest request) {
+        return request.getRemoteAddr();
+    }
 
     @GetMapping("/insert")
     public void insert() throws InterruptedException {
@@ -52,14 +61,11 @@ public class OrderController {
     }
 
     @GetMapping("/place/v2")
-    public Map<String, String> place() throws InterruptedException {
+    public Map<String, Object> place() throws InterruptedException {
         logger.info("info");
         logger.warn("warn");
         logger.error("error");
-        if (enableV2) {
-            return Map.of("v2", "v2");
-        }
-        return Map.of("test", "test1");
+        return Map.of("enableV2", enableV2, "datasourceURL", datasourceURL, "username", username);
     }
 
     @GetMapping("/place/v3")
