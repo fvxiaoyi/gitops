@@ -23,7 +23,8 @@
 	<modules>
 		<module>order-service</module>
 		<module>payment-service</module>
-	</modules>
+        <module>consumer-service</module>
+    </modules>
 
 	<dependencyManagement>
 		<dependencies>

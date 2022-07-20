@@ -1,7 +1,7 @@
-package com.example.demo;
+package com.example.consumerservice;
 
-import com.example.demo.core.HibernateListener;
-import com.example.demo.domain.Tracking;
+import com.example.consumerservice.apps.order.domain.service.Tracking;
+import com.example.consumerservice.apps.order.domain.service.TrackingEvent;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
@@ -20,9 +20,9 @@ class DemoApplicationTests {
     @Rollback(false)
     void contextLoads() {
         Tracking tracking = new Tracking();
-        tracking.id = "1";
-        tracking.name = "1";
-        tracking.address = "1";
+//        tracking.name = "1";
+//        tracking.address = "1";
+        tracking.registerEvent(new TrackingEvent(tracking));
         entityManager.persist(tracking);
     }
 
@@ -31,10 +31,7 @@ class DemoApplicationTests {
     @Rollback(false)
     void update() {
         Tracking tracking = entityManager.find(Tracking.class, "1");
-        tracking.qty = 6;
+//        tracking.qty = 6;
     }
 
-    public static void main(String[] args) {
-        System.out.println(HibernateListener.class.getTypeName());
-    }
 }
