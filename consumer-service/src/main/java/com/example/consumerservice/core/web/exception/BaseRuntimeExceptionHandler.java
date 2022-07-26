@@ -1,4 +1,4 @@
-package com.example.consumerservice.core.mvc;
+package com.example.consumerservice.core.web.exception;
 
 import com.example.consumerservice.core.base.BaseRuntimeException;
 

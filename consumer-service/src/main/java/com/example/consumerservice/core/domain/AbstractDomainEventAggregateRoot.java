@@ -11,7 +11,7 @@ import java.util.Objects;
  * @author ebin
  */
 public abstract class AbstractDomainEventAggregateRoot<A extends AggregateRoot<A>> implements AggregateRoot<A> {
-    private transient final List<DomainEvent<A>> domainEvents = new ArrayList<>();
+    private final transient List<DomainEvent<A>> domainEvents = new ArrayList<>();
 
     @Override
     public DomainEvent<A> registerEvent(DomainEvent<A> event) {

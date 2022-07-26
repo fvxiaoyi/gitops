@@ -1,4 +1,4 @@
-package com.example.consumerservice.core.event;
+package com.example.consumerservice.core.domain.event;
 
 import com.example.consumerservice.core.domain.AggregateRoot;
 import com.example.consumerservice.core.domain.DomainEvent;
@@ -19,12 +19,12 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author ebin
  */
-public class DomainEventDispatcher {
+public final class DomainEventDispatcher {
     public static final DomainEventDispatcher INSTANCE = new DomainEventDispatcher();
     private static final Logger LOGGER = LoggerFactory.getLogger(DomainEventDispatcher.class);
+    private static final Map<String, Set<DomainPreEventListener<?>>> PRE_EVENT_LISTENERS = new ConcurrentHashMap<>();
+    private static final Map<String, Set<DomainPostEventListener<?>>> POST_EVENT_LISTENERS = new ConcurrentHashMap<>();
 
-    private final Map<String, Set<DomainPreEventListener<?>>> PRE_EVENT_LISTENERS = new ConcurrentHashMap<>();
-    private final Map<String, Set<DomainPostEventListener<?>>> POST_EVENT_LISTENERS = new ConcurrentHashMap<>();
     private EntityManager entityManager;
     private ThreadPoolTaskExecutor taskExecutor;
 

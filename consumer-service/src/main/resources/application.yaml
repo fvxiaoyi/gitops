@@ -9,3 +9,7 @@ spring:
   jpa:
     showSql: true
     openInView: false
+sql-query:
+  mapper-locations:
+    - com/example/consumerservice/bff/service/query/ArticleQuery.xml
+    - com/example/consumerservice/bff/service/query/TestQuery.xml

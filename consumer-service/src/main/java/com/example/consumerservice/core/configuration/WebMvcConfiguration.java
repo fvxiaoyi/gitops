@@ -1,7 +1,7 @@
 package com.example.consumerservice.core.configuration;
 
-import com.example.consumerservice.core.mvc.AnnotationLessRequestMappingHandlerAdapter;
-import com.example.consumerservice.core.mvc.AnnotationLessRequestMappingRegistrationListener;
+import com.example.consumerservice.core.web.expand.AnnotationLessRequestMappingHandlerAdapter;
+import com.example.consumerservice.core.web.expand.AnnotationLessRequestMappingRegistrationListener;
 import com.example.consumerservice.core.utils.json.JSONMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

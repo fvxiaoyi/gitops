@@ -1,7 +1,7 @@
 package com.example.consumerservice.core.configuration;
 
-import com.example.consumerservice.core.mvc.DefaultHandlerExceptionResolver;
-import com.example.consumerservice.core.mvc.ExceptionHandlerCustomizer;
+import com.example.consumerservice.core.web.exception.DefaultHandlerExceptionResolver;
+import com.example.consumerservice.core.web.exception.ExceptionHandlerCustomizer;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerExceptionResolver;

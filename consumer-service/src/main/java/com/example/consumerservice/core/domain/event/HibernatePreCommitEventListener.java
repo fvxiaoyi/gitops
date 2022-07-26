@@ -1,4 +1,4 @@
-package com.example.consumerservice.core.event;
+package com.example.consumerservice.core.domain.event;
 
 import com.example.consumerservice.core.domain.AggregateRoot;
 import com.example.consumerservice.core.domain.DomainEvent;

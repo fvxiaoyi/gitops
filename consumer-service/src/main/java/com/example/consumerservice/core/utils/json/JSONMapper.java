@@ -12,8 +12,11 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 /**
  * @author ebin
  */
-public class JSONMapper {
+public final class JSONMapper {
     public static final ObjectMapper OBJECT_MAPPER = createObjectMapper();
+
+    private JSONMapper() {
+    }
 
     private static ObjectMapper createObjectMapper() {
         return JsonMapper.builder()

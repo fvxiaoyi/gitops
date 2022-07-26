@@ -12,6 +12,9 @@ import static com.example.consumerservice.core.utils.json.JSONMapper.OBJECT_MAPP
  * @author ebin
  */
 public final class JSON {
+    private JSON() {
+    }
+
     public static <T> T fromJSON(Type instanceType, String json) {
         try {
             JavaType javaType = OBJECT_MAPPER.getTypeFactory().constructType(instanceType);

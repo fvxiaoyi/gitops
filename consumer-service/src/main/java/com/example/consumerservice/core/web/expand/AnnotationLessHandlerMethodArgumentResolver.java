@@ -1,4 +1,4 @@
-package com.example.consumerservice.core.mvc;
+package com.example.consumerservice.core.web.expand;
 
 import org.springframework.core.Conventions;
 import org.springframework.core.MethodParameter;
@@ -43,8 +43,8 @@ public class AnnotationLessHandlerMethodArgumentResolver extends RequestResponse
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        if (!parameter.hasParameterAnnotations() &&
-                AnnotatedElementUtils.hasAnnotation(parameter.getContainingClass(), ResponseBody.class)) {
+        if (!parameter.hasParameterAnnotations()
+                && AnnotatedElementUtils.hasAnnotation(parameter.getContainingClass(), ResponseBody.class)) {
             Method method = parameter.getMethod();
             if (Objects.nonNull(method)) {
                 return AnnotatedElementUtils.hasAnnotation(parameter.getMethod(), PostMapping.class)
@@ -58,21 +58,21 @@ public class AnnotationLessHandlerMethodArgumentResolver extends RequestResponse
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        parameter = parameter.nestedIfOptional();
-        Object arg = readWithMessageConverters(webRequest, parameter, parameter.getNestedGenericParameterType());
-        String name = Conventions.getVariableNameForParameter(parameter);
+        MethodParameter genParameter = parameter.nestedIfOptional();
+        Object arg = readWithMessageConverters(webRequest, genParameter, genParameter.getNestedGenericParameterType());
+        String name = Conventions.getVariableNameForParameter(genParameter);
 
         if (binderFactory != null && arg != null && validateRequestParamNames.contains(arg.getClass().getName())) {
             WebDataBinder binder = binderFactory.createBinder(webRequest, arg, name);
-            validateIfApplicable(binder, parameter);
-            if (binder.getBindingResult().hasErrors() && isBindExceptionRequired(binder, parameter)) {
-                throw new MethodArgumentNotValidException(parameter, binder.getBindingResult());
+            validateIfApplicable(binder, genParameter);
+            if (binder.getBindingResult().hasErrors() && isBindExceptionRequired(binder, genParameter)) {
+                throw new MethodArgumentNotValidException(genParameter, binder.getBindingResult());
             }
             if (mavContainer != null) {
                 mavContainer.addAttribute(BindingResult.MODEL_KEY_PREFIX + name, binder.getBindingResult());
             }
         }
-        return adaptArgumentIfNecessary(arg, parameter);
+        return adaptArgumentIfNecessary(arg, genParameter);
     }
 
     @Override

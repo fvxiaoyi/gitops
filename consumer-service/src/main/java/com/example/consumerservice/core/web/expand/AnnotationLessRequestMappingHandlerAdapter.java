@@ -1,4 +1,4 @@
-package com.example.consumerservice.core.mvc;
+package com.example.consumerservice.core.web.expand;
 
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;

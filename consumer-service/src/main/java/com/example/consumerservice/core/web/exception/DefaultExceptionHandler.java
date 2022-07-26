@@ -1,4 +1,4 @@
-package com.example.consumerservice.core.mvc;
+package com.example.consumerservice.core.web.exception;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;

@@ -1,5 +1,7 @@
 package com.example.consumerservice.bff.controller;
 
+import com.example.consumerservice.bff.service.query.DomainEventTracking;
+import com.example.consumerservice.core.db.query.JPAQueryCommand;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ public class DemoController {
 
     @PostMapping("/2")
     public Demo get2(Demo demo) {
+        JPAQueryCommand<DomainEventTracking> domainEventTrackingJPAWithMybatisParseQueryCommand = new JPAQueryCommand<>("article.list", DomainEventTracking.class);
         return demo;
     }
 
@@ -29,7 +32,7 @@ public class DemoController {
         return new Demo();
     }
 
-//    @Valid
+    //    @Valid
     @PostMapping("/5")
     public Demo get5(Demo demo) {
         return new Demo();

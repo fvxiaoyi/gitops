@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * @author ebin
  */
 public class MultiLevelFilter extends AbstractMatcherFilter<ILoggingEvent> {
-    Set<Level> levels;
+    private Set<Level> levels;
 
     @Override
     public FilterReply decide(ILoggingEvent event) {

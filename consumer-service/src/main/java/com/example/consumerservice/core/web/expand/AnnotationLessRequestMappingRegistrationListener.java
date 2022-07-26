@@ -1,4 +1,4 @@
-package com.example.consumerservice.core.mvc;
+package com.example.consumerservice.core.web.expand;
 
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.context.ApplicationContext;
@@ -29,30 +29,33 @@ public class AnnotationLessRequestMappingRegistrationListener implements Applica
         RequestMappingHandlerMapping requestMappingHandlerMapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
         Collection<HandlerMethod> handlerMethods = requestMappingHandlerMapping.getHandlerMethods().values();
         for (HandlerMethod handlerMethod : handlerMethods) {
-            boolean applicable = false;
             if (handlerMethod.getBeanType().equals(BasicErrorController.class)) {
                 continue;
             }
             MethodParameter[] methodParameters = handlerMethod.getMethodParameters();
-            for (MethodParameter methodParameter : methodParameters) {
-                Field[] declaredFields = methodParameter.getParameterType().getDeclaredFields();
-                for (Field field : declaredFields) {
-                    Annotation[] annotations = field.getAnnotations();
-                    for (Annotation ann : annotations) {
-                        if (ann.annotationType().getName().startsWith("javax.validation")) {
-                            resolver.addValidateRequestParamNames(methodParameter.getParameterType().getName());
-                            applicable = true;
-                            break;
-                        }
-                    }
-                    if (applicable) {
-                        break;
-                    }
-                }
-                if (applicable) {
-                    break;
+            handleMethodParameters(methodParameters, resolver);
+        }
+    }
+
+    private void handleMethodParameters(MethodParameter[] methodParameters, AnnotationLessHandlerMethodArgumentResolver resolver) {
+        for (MethodParameter methodParameter : methodParameters) {
+            if (handleMethodParameter(methodParameter, resolver)) {
+                return;
+            }
+        }
+    }
+
+    private boolean handleMethodParameter(MethodParameter methodParameter, AnnotationLessHandlerMethodArgumentResolver resolver) {
+        Field[] declaredFields = methodParameter.getParameterType().getDeclaredFields();
+        for (Field field : declaredFields) {
+            Annotation[] annotations = field.getAnnotations();
+            for (Annotation ann : annotations) {
+                if (ann.annotationType().getName().startsWith("javax.validation")) {
+                    resolver.addValidateRequestParamNames(methodParameter.getParameterType().getName());
+                    return true;
                 }
             }
         }
+        return false;
     }
 }

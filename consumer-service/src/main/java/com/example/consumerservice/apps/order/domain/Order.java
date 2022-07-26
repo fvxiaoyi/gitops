@@ -1,5 +1,7 @@
-package com.example.consumerservice.apps.order.domain.service;
+package com.example.consumerservice.apps.order.domain;
 
+import com.example.consumerservice.apps.order.application.TrackingEventLinstiner;
+import com.example.consumerservice.apps.order.domain.service.OrderItem;
 import com.example.consumerservice.core.domain.impl.AbstractAggregateRoot;
 
 import java.math.BigDecimal;
@@ -34,6 +36,7 @@ public class Order extends AbstractAggregateRoot<Order> {
 
     private void setNumber(String number) {
         this.number = number;
+        new TrackingEventLinstiner();
     }
 
     private void setTotalAmount(BigDecimal totalAmount) {

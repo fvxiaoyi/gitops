@@ -1,8 +1,8 @@
 package com.example.consumerservice.core.configuration;
 
-import com.example.consumerservice.core.event.DomainEventRegistrationListener;
-import com.example.consumerservice.core.event.HibernatePostCommitEventListener;
-import com.example.consumerservice.core.event.HibernatePreCommitEventListener;
+import com.example.consumerservice.core.domain.event.DomainEventRegistrationListener;
+import com.example.consumerservice.core.domain.event.HibernatePostCommitEventListener;
+import com.example.consumerservice.core.domain.event.HibernatePreCommitEventListener;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.event.spi.EventType;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
@@ -18,6 +18,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class HibernateJPAConfiguration {
     public static final String DOMAIN_EVENT_TASK_EXECUTOR_NAME = "domainEventTaskExecutor";
     private static final String EVENT_LISTENER_GROUP_NAME_TPL = "%s.%s";
+    private static final int STATEMENT_FETCH_SIZE = 64;
+    private static final int DOMAIN_EVENT_TASK_EXECUTOR_AWAIT_TERMINATION_SECONDS = 60 * 2;
 
     @Bean
     public HibernatePropertiesCustomizer hibernatePropertiesCustomizer() {
@@ -32,7 +34,7 @@ public class HibernateJPAConfiguration {
 
             prop.putIfAbsent(AvailableSettings.JPA_VALIDATION_MODE, ValidationMode.NONE);
             prop.putIfAbsent(AvailableSettings.ISOLATION, Connection.TRANSACTION_READ_COMMITTED);
-            prop.putIfAbsent(AvailableSettings.STATEMENT_FETCH_SIZE, 64);
+            prop.putIfAbsent(AvailableSettings.STATEMENT_FETCH_SIZE, STATEMENT_FETCH_SIZE);
         };
     }
 
@@ -50,7 +52,7 @@ public class HibernateJPAConfiguration {
         taskExecutor.setCorePoolSize(Runtime.getRuntime().availableProcessors() + 1);
         taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
-        taskExecutor.setAwaitTerminationSeconds(60 * 2);
+        taskExecutor.setAwaitTerminationSeconds(DOMAIN_EVENT_TASK_EXECUTOR_AWAIT_TERMINATION_SECONDS);
         taskExecutor.initialize();
         return taskExecutor;
     }
