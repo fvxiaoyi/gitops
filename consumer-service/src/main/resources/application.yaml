@@ -7,7 +7,7 @@ spring:
     password: root
     type: com.zaxxer.hikari.HikariDataSource
   jpa:
-    showSql: true
+    showSql: false
     openInView: false
 sql-query:
   mapper-locations:

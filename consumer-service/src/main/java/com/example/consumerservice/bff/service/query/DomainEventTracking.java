@@ -9,7 +9,9 @@ import java.time.ZonedDateTime;
  * @author ebin
  */
 public class DomainEventTracking {
+    @JsonProperty("id")
     public Long id;
+
     @NotNull
     @JsonProperty("aggregate_root_class")
     public String aggregateRootClass;

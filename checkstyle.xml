@@ -10,16 +10,16 @@
 
     <module name="TreeWalker">
         <!--Annotations:-->
-        <module name="AnnotationLocation">
-            <property name="allowSamelineParameterizedAnnotation" value="true"/>
-        </module>
-        <module name="AnnotationUseStyle"/>
-        <module name="SuppressWarnings">
-            <property name="format" value="^unchecked$"/>
-            <property name="tokens"
-                      value="CLASS_DEF,INTERFACE_DEF,ENUM_DEF,ANNOTATION_DEF,ANNOTATION_FIELD_DEF,ENUM_CONSTANT_DEF"/>
-        </module>
-        <module name="SuppressWarningsHolder"/>
+        <!--        <module name="AnnotationLocation">
+                    <property name="allowSamelineParameterizedAnnotation" value="true"/>
+                </module>
+                <module name="AnnotationUseStyle"/>
+                <module name="SuppressWarnings">
+                    <property name="format" value="^unchecked$"/>
+                    <property name="tokens"
+                              value="CLASS_DEF,INTERFACE_DEF,ENUM_DEF,ANNOTATION_DEF,ANNOTATION_FIELD_DEF,ENUM_CONSTANT_DEF"/>
+                </module>
+                <module name="SuppressWarningsHolder"/>-->
 
         <!--Class Design-->
         <module name="FinalClass"/>
@@ -28,7 +28,9 @@
         <module name="InterfaceIsType"/>
         <module name="MutableException"/>
         <module name="OneTopLevelClass"/>
-        <module name="VisibilityModifier"/>
+        <module name="VisibilityModifier">
+            <property name="ignoreAnnotationCanonicalNames" value="com.fasterxml.jackson.annotation.JsonProperty"/>
+        </module>
 
         <!--Coding:-->
         <module name="AvoidNoArgumentSuperConstructorCall"/>

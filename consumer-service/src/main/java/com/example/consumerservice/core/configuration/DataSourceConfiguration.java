@@ -19,7 +19,6 @@ import javax.sql.DataSource;
  */
 @Configuration
 public class DataSourceConfiguration {
-
     @Bean
     @ConditionalOnClass(HikariDataSource.class)
     @ConditionalOnMissingBean(DataSource.class)
