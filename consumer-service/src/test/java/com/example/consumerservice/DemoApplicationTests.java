@@ -3,9 +3,9 @@ package com.example.consumerservice;
 import com.example.consumerservice.apps.order.domain.service.Tracking;
 import com.example.consumerservice.apps.order.domain.service.TrackingEvent;
 import com.example.consumerservice.bff.service.query.DomainEventTracking;
-import com.example.consumerservice.core.db.query.JPAQueryCommand;
-import com.example.consumerservice.core.db.query.JPAQueryService;
-import com.example.consumerservice.core.db.query.PagingResult;
+import core.framework.db.query.JPAQueryCommand;
+import core.framework.db.query.JPAQueryService;
+import core.framework.db.query.PagingResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Map;
 
 @SpringBootTest
 class DemoApplicationTests {

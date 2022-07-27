@@ -1,7 +1,7 @@
 package com.example.consumerservice.bff.controller;
 
 import com.example.consumerservice.bff.service.query.DomainEventTracking;
-import com.example.consumerservice.core.db.query.JPAQueryCommand;
+import core.framework.db.query.JPAQueryCommand;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

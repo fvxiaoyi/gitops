@@ -1,7 +1,7 @@
 package com.example.consumerservice.apps.order.application;
 
 import com.example.consumerservice.apps.order.domain.service.TrackingEvent;
-import com.example.consumerservice.core.domain.event.DomainPostEventListener;
+import core.framework.domain.event.DomainPostEventListener;
 import org.springframework.stereotype.Component;
 
 @Component

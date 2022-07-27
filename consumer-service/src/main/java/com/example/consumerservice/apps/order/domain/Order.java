@@ -2,7 +2,7 @@ package com.example.consumerservice.apps.order.domain;
 
 import com.example.consumerservice.apps.order.application.TrackingEventLinstiner;
 import com.example.consumerservice.apps.order.domain.service.OrderItem;
-import com.example.consumerservice.core.domain.impl.AbstractAggregateRoot;
+import core.framework.domain.impl.AbstractAggregateRoot;
 
 import java.math.BigDecimal;
 import java.util.Collections;
