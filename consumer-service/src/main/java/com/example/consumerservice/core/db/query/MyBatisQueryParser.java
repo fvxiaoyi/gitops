@@ -1,5 +1,6 @@
 package com.example.consumerservice.core.db.query;
 
+import com.example.consumerservice.core.db.exception.QueryNotFoundException;
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -26,7 +27,7 @@ public class MyBatisQueryParser implements InitializingBean, QueryParser {
                 throw e;
             }
         } else {
-            throw new RuntimeException("Query statment: [" + queryName + "] not found");
+            throw new QueryNotFoundException(queryName);
         }
     }
 

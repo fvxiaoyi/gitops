@@ -16,7 +16,7 @@ import java.util.Objects;
 /**
  * @author ebin
  */
-public class AnnotationLessRequestMappingRegistrationListener implements ApplicationListener<ContextRefreshedEvent> {
+public class RequestParamValidateRegistrator implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
